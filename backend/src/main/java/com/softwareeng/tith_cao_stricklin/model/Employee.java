@@ -4,10 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "Employee")
@@ -27,4 +25,7 @@ public class Employee {
 
   @Column
   String title;
+
+  @OneToMany(mappedBy = "employee")
+  List<Role> employeeRoles;
 }

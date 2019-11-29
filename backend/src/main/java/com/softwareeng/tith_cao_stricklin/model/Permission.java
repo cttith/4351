@@ -4,10 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "Permission")
@@ -21,4 +18,8 @@ public class Permission {
 
   @Column
   String link;
+
+  @ManyToOne
+  @JoinColumn(name = "Role_Permissions", nullable = false)
+  private Role role;
 }

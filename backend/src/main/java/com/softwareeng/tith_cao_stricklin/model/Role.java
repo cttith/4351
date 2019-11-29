@@ -4,10 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "Role")
@@ -21,5 +19,14 @@ public class Role {
 
   @Column
   String type;
+
+  @OneToMany(mappedBy = "Role")
+  List<Permission> permissions;
+
+  @ManyToOne
+  @JoinColumn(name = "Employee_Role", nullable = false)
+  Employee employee;
+
+
 
 }
