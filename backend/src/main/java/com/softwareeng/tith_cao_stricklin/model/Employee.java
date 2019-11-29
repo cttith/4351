@@ -1,31 +1,32 @@
 package com.softwareeng.tith_cao_stricklin.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
+import lombok.*;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.*;
 import java.util.List;
 
-@Entity
-@Table(name = "Employee")
+@Document(collection = "Employees")
 @AllArgsConstructor
+@RequiredArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties
+@Data
 public class Employee {
 
   @Id
+  @NonNull
   int ID;
 
-  @Column
+  @NonNull
   String firstName;
 
-  @Column
+  @NonNull
   String lastName;
 
-  @Column
+  @NonNull
   String title;
 
-  @OneToMany(mappedBy = "employee")
   List<Role> employeeRoles;
 }
