@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Administrative login</title>
+    <script src="../../js/react.min.js"></script>
+    <script src="../../js/react-dom.min.js"></script>
+    <script src="../../js/browser.min.js"></script>
+</head>
+<body>
+
+<div id="container"></div>
+
+<script type="text/babel">
+    ReactDOM.render(<h1><center>Administrative Portal</center></h1>, document.getElementById('container'));
+</script>
+
+<div class="container">
+    <center><label for="user"><b>Username</b></label>
+    <input type="text" placeholder="Enter Username" name="user" required></center>
+    <p></p>
+    <center><label for="pas"><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" name="pas" required></center>
+    <p></p>
+    <center><button type="submit">Login</button></center>
+
+</div>
+<!--
+    <div id="container"></div>
+
+    <script type="text/babel">
+
+        var Header = React.createClass({
+           render: function() {
+               return(
+                   <div>
+                       <h1>Administrative Portal</h1>
+                   </div>
+                   );
+           }
+        });
+
+        ReactDOM.render(<center><Header /></center>, document.getElementById('container'));
+-->
+
+
+</body>
+</html>
