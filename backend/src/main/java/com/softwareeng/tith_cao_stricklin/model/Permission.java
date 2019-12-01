@@ -1,9 +1,8 @@
 package com.softwareeng.tith_cao_stricklin.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
+import lombok.*;
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -11,13 +10,18 @@ import org.springframework.data.mongodb.core.mapping.Document;
 //
 //@Entity
 //@Table(name = "Permission")
-@Document
+@Document(collection = "Permission")
 @AllArgsConstructor
 @NoArgsConstructor
+@RequiredArgsConstructor
 @JsonIgnoreProperties
+@Data
 public class Permission {
 
   @Id
+  ObjectId _id;
+
+  @NonNull
   String linkPurpose;
 
   @NonNull
@@ -25,5 +29,8 @@ public class Permission {
 
 //  @ManyToOne
 //  @JoinColumn(name = "Role_Permissions", nullable = false)
-  private Role role;
+//  private Role role;
+
+  public String get_id() { return _id.toHexString(); }
+  public void set_id(ObjectId _id) { this._id = _id; }
 }

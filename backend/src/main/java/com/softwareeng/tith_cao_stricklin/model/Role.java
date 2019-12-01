@@ -1,10 +1,10 @@
 package com.softwareeng.tith_cao_stricklin.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
-import lombok.NonNull;
+import lombok.*;
+import org.bson.types.ObjectId;
 import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 //import javax.persistence.*;
@@ -12,25 +12,25 @@ import java.util.List;
 
 //@Entity
 //@Table(name = "Role")
-@Document
+@Document(collection = "Role")
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties
+@Data
 public class Role {
 
   @Id
-  int ID;
+  @NonNull
+  ObjectId _id;
 
   @NonNull
   String type;
 
-//  @OneToMany(mappedBy = "Role")
-  List<Permission> permissions;
+  @NonNull
+  List<String> permissions;
 
-//  @ManyToOne
-//  @JoinColumn(name = "Employee_Role", nullable = false)
-  Employee employee;
-
+  public String get_id() { return _id.toHexString(); }
+  public void set_id(ObjectId _id) { this._id = _id; }
 
 
 }
