@@ -1,7 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import './Login.css';
-import { Form } from 'react-bootstrap'
-import { Button } from 'react-bootstrap'
+import { Form, Button, Alert } from 'react-bootstrap'
+// import { Button } from 'react-bootstrap'
+import { navigate } from "@reach/router"
+
+
 
 // ES6 CLASS COMMENTED OUT
 // class Login extends React.Component{
@@ -41,21 +44,22 @@ import { Button } from 'react-bootstrap'
 //     }
 // }
 
-function Login() {
-    const [email, setEmail] = useState("");
+function Login({ email, handleEmail, loggedIn, setLoggedIn }) {
     const [password, setPassword] = useState("");
-    const [loggedIn, setLoggedIn] = useState(false);
+    const [show, setShow] = useState(false);
+
 
     useEffect(() => {
         if (loggedIn === true) {
-            console.log("need to re-route")
+            navigate('/home')
         } else {
             console.log("invalid credentials")
         }
     }, [loggedIn]);
 
-    function authenticate() {
 
+
+    function authenticate() {
         let request = {
             email: email,
             password: password
@@ -73,22 +77,27 @@ function Login() {
         }).then(result => {
             if (JSON.parse(result) === 200) {
                 setLoggedIn(true)
+                setShow(false)
             } else {
+                console.log("setting show to true")
                 setLoggedIn(false)
+                setShow(true)
             }
         }).catch(e => {
             console.log("Error: " + e)
         })
+    }
 
-        // axios.get("http://localhost:8080/authenticate", {
-        //     email,
-        //     password
-        // }).then(result => {
-        //     console.log(result)
-        // }).catch(e => {
-        //     console.log("Error: " + e)
-        // })
-
+    function RevealAlert() {
+        if (show) {
+            return (
+                <Alert variant="danger" className="alert-margins">
+                    <Alert.Heading>Invalid Credentials!</Alert.Heading>
+                </Alert>
+            )
+        } else {
+            return null
+        }
     }
 
     return (
@@ -100,9 +109,7 @@ function Login() {
                         type="email"
                         placeholder="Enter email"
                         onChange={
-                            e => {
-                                setEmail(e.target.value);
-                            }
+                            handleEmail
                         }
                     />
                 </Form.Group>
@@ -120,6 +127,7 @@ function Login() {
                 <Button variant="primary" onClick={authenticate}>
                     Login
                 </Button>
+                <RevealAlert />
             </Form>
 
         </div>

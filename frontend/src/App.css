@@ -23,5 +23,6 @@
 
 .navbar-brand-custom {
   width: 100%;
+  position: absolute;
   text-align: center;
 }
