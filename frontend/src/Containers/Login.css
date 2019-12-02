@@ -1,0 +1,14 @@
+.center-content{
+    text-align: center;
+    width:50%;
+    margin: 0 auto;
+}
+
+.form-margins{
+    margin-top: 50px;
+}
+
+.password-margins{
+    margin-top: 15px;
+    margin-bottom: 15px;
+}

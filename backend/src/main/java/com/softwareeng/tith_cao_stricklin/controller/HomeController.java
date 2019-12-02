@@ -1,6 +1,7 @@
 package com.softwareeng.tith_cao_stricklin.controller;
 
 
+import com.softwareeng.tith_cao_stricklin.RequestBody.Login;
 import com.softwareeng.tith_cao_stricklin.model.Employee;
 import com.softwareeng.tith_cao_stricklin.model.Permission;
 import com.softwareeng.tith_cao_stricklin.model.Role;
@@ -48,6 +49,19 @@ public class HomeController {
   @GetMapping(value = "/allEmployees")
   public List<Employee> employees(){
     return employeeRepository.findAll();
+  }
+
+  @PostMapping(value = "/authenticate")
+  public Integer login(@RequestBody Login credentials){
+    System.out.println("calling fxn");
+    Optional<Employee> employee = employeeRepository.findByEmail(credentials.email);
+
+    if (!employee.isPresent()) return -2;
+
+    System.out.println("email: " + credentials.email);
+    System.out.println("password: " + credentials.password);
+    if (employee.get().getPassword().equals(credentials.password)) return 200;
+    return -1;
   }
 
   /*
