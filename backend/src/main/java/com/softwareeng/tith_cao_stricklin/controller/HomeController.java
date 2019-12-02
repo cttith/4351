@@ -8,6 +8,7 @@ import com.softwareeng.tith_cao_stricklin.model.Role;
 import com.softwareeng.tith_cao_stricklin.repository.EmployeeRepository;
 import com.softwareeng.tith_cao_stricklin.repository.PermissionRepository;
 import com.softwareeng.tith_cao_stricklin.repository.RoleRepository;
+import com.softwareeng.tith_cao_stricklin.service.EmployeeService;
 import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -78,10 +79,23 @@ public class HomeController {
    Returns:
     List of link names
    */
-  @GetMapping(value = "/permissions/{role_type}")
-  public List<String> permissions(@PathVariable(name = "role_type")String roleType){
-    return roleRepository.findByType(roleType).getPermissions();
+  @GetMapping(value = "/permissions/{email}")
+  public List<String> permissions(@PathVariable(name = "email")String email){
+    Optional<Employee> optionalEmployee = employeeRepository.findByEmail(email.substring(1,email.length()-1));
+    Employee employee = optionalEmployee.get();
+    EmployeeService employeeService = new EmployeeService(employee);
+    List<String> roles = employeeService.returnRoles();
+
+    List<String> linkPurposes = new ArrayList<>();
+    for(String role : roles) {
+      System.out.println("role = " + role);
+      linkPurposes.addAll(roleRepository.findByType(role).getPermissions());
+    }
+
+    return linkPurposes;
   }
+
+
 
   /*
   retrieve actual link for user

@@ -26,3 +26,19 @@
   position: absolute;
   text-align: center;
 }
+
+.title{
+  font-size: 100px;
+  width: 100%;
+}
+
+.body-margins{
+  font-style: italic;
+  color: grey;
+  margin-top:15px;
+  margin-bottom:30px;
+}
+
+.login-margins{
+  margin-top:15px;
+}

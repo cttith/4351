@@ -46,7 +46,9 @@ import { navigate } from "@reach/router"
 
 function Login({ email, handleEmail, loggedIn, setLoggedIn }) {
     const [password, setPassword] = useState("");
-    const [show, setShow] = useState(false);
+    const [showAlert, setShowAlert] = useState(false);
+    const [showLogin, setShowLogin] = useState(false);
+    const [showSignUp, setShowSignUp] = useState(false);
 
 
     useEffect(() => {
@@ -57,7 +59,19 @@ function Login({ email, handleEmail, loggedIn, setLoggedIn }) {
         }
     }, [loggedIn]);
 
+    useEffect(() => {
+        if (showLogin) {
+            console.log("trueee")
+        }
+    })
 
+    const handleLogin = e => {
+        setShowLogin(true)
+    }
+
+    const handleSignUp = e => {
+        setShowSignUp(true)
+    }
 
     function authenticate() {
         let request = {
@@ -77,11 +91,11 @@ function Login({ email, handleEmail, loggedIn, setLoggedIn }) {
         }).then(result => {
             if (JSON.parse(result) === 200) {
                 setLoggedIn(true)
-                setShow(false)
+                setShowAlert(false)
             } else {
                 console.log("setting show to true")
                 setLoggedIn(false)
-                setShow(true)
+                setShowAlert(true)
             }
         }).catch(e => {
             console.log("Error: " + e)
@@ -89,7 +103,7 @@ function Login({ email, handleEmail, loggedIn, setLoggedIn }) {
     }
 
     function RevealAlert() {
-        if (show) {
+        if (showAlert) {
             return (
                 <Alert variant="danger" className="alert-margins">
                     <Alert.Heading>Invalid Credentials!</Alert.Heading>
@@ -99,6 +113,70 @@ function Login({ email, handleEmail, loggedIn, setLoggedIn }) {
             return null
         }
     }
+
+    function RevealLogin() {
+        if (showLogin) {
+            return (
+                <Form className="form-margins">
+                    <Form.Group className="center-content" controlId="formBasicEmail">
+                        <Form.Label>Email address</Form.Label>
+                        <Form.Control
+                            type="email"
+                            placeholder="Enter email"
+                            onChange={
+                                handleEmail
+                            }
+                        />
+                    </Form.Group>
+                    <Form.Group className="center-content password-margins" controlId="formBasicPassword">
+                        <Form.Label>Password</Form.Label>
+                        <Form.Control
+                            type="password"
+                            placeholder="Password"
+                            onChange={
+                                e => {
+                                    setPassword(e.target.value);
+                                }
+                            } />
+                    </Form.Group>
+                    <Button variant="primary" onClick={authenticate}>
+                        Login
+                </Button>
+                    <RevealAlert />
+                </Form>
+            )
+        } else {
+            return null
+        }
+    }
+
+    // function RevealSignUp() {
+    //     if (showSignUp) {
+    //         return (
+    //             <Form>
+    //                 <Form.Group as={Row} controlId="formHorizontalEmail">
+    //                     <Form.Label column sm={2}>
+    //                         Email
+    // </Form.Label>
+    //                     <Col sm={10}>
+    //                         <Form.Control type="email" placeholder="Email" />
+    //                     </Col>
+    //                 </Form.Group>
+
+    //                 <Form.Group as={Row} controlId="formHorizontalPassword">
+    //                     <Form.Label column sm={2}>
+    //                         Password
+    // </Form.Label>
+    //                     <Col sm={10}>
+    //                         <Form.Control type="password" placeholder="Password" />
+    //                     </Col>
+    //                 </Form.Group>
+    //             </Form>
+    //         )
+    //     } else {
+    //         return null
+    //     }
+    // }
 
     return (
         <div >
@@ -129,7 +207,6 @@ function Login({ email, handleEmail, loggedIn, setLoggedIn }) {
                 </Button>
                 <RevealAlert />
             </Form>
-
         </div>
 
     )
