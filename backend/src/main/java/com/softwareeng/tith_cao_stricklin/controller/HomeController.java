@@ -2,6 +2,7 @@ package com.softwareeng.tith_cao_stricklin.controller;
 
 
 import com.softwareeng.tith_cao_stricklin.RequestBody.EmployeeRequest;
+import com.softwareeng.tith_cao_stricklin.RequestBody.EmployeeRoleChangeRequest;
 import com.softwareeng.tith_cao_stricklin.RequestBody.Login;
 import com.softwareeng.tith_cao_stricklin.model.Employee;
 import com.softwareeng.tith_cao_stricklin.model.Permission;
@@ -138,6 +139,28 @@ public class HomeController {
     }
 
     return links;
+
+  }
+
+  @PostMapping(value = "/employee/modify/roles")
+  public Integer modifyRoles(@RequestBody EmployeeRoleChangeRequest employeeRoleChangeRequest){
+
+    Optional<Employee> optionalEmployee = employeeRepository.findByEmail(employeeRoleChangeRequest.getEmail());
+    if(!optionalEmployee.isPresent()) {
+      System.out.println("cant find employee");
+      return -1;
+    }
+    Employee employee = optionalEmployee.get();
+
+
+    employee.setEmployeeRoles(employeeRoleChangeRequest.getEmployeeRoles());
+
+    employeeRepository.save(employee);
+    System.out.println("Complete modify");
+    return 1;
+
+
+
 
   }
   

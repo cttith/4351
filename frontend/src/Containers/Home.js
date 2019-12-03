@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import { Button } from 'react-bootstrap'
 import './Home.css'
+import './ManageUsers.css'
 
 function Home({ isAuth, email }) {
     const [linkNames, setLinkNames] = useState([])
@@ -29,16 +30,18 @@ function Home({ isAuth, email }) {
     }
 
     function ReturnButtonLinks() {
-        if (linkNames.length > 0) {
+        if (linkNames.length > 1) {
             return (
-                linkNames.map((link) =>
-                    <Button variant="primary" size="lg" className="btns-size" block onClick={retrieveLinkNames}>
+                linkNames.map((link, index) =>
+                    <Button key={index} variant="primary" size="lg" className="btns-size" block onClick={retrieveLinkNames}>
                         {link}
                     </Button>
                 )
             )
         } else {
-            return null
+            return (
+                <strong className="title title-margins"> NO LINKS AVAILABLE! </strong>
+            )
         }
     }
 

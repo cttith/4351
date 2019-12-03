@@ -14,6 +14,7 @@ function ManageUsers() {
     const [firstName, setFirstName] = useState("")
     const [lastName, setLastName] = useState("")
     const [emailAlert, setEmailAlert] = useState(false)
+    const [createdAlert, setCreatedAlert] = useState(false)
 
     // fetch all
     useEffect(() => {
@@ -35,6 +36,7 @@ function ManageUsers() {
 
     useEffect(() => {
         console.log("new users = " + JSON.stringify(users))
+        setTimeout(setCreatedAlert(false), 3000)
     }, [users])
 
     function parseResults(result) {
@@ -103,6 +105,7 @@ function ManageUsers() {
                 ]
                 setUsers(newUsers)
                 console.log("email created!")
+                setCreatedAlert(true)
                 setEmailAlert(false)
             } else {
                 console.log("email already taken")
@@ -125,11 +128,23 @@ function ManageUsers() {
         }
     }
 
+    function CreatedAlert() {
+        if (createdAlert) {
+            return (
+                <Alert variant="success" className="alert-margins">
+                    <Alert.Heading>User Created!</Alert.Heading>
+                </Alert>
+            )
+        } else {
+            return null
+        }
+    }
+
     function UserAccordion() {
         if (users.length > 0) {
             return (
                 users.map((user) =>
-                    <Accordion key={user.email}>
+                    <Accordion key={user.email} className="accordion-size">
                         <Card key={user.email}>
                             <Card.Header>
                                 <Accordion.Toggle as={Button} variant="link" eventKey="0">
@@ -158,12 +173,12 @@ function ManageUsers() {
         <div className="accordion-div">
             <strong className="title"> Accounts </strong>
             <UserAccordion />
-            <Accordion>
+            <Accordion className="accordion-size">
                 <Card>
                     <Card.Header>
                         <Accordion.Toggle as={Button} variant="link" eventKey="0">
                             Add new user!
-      </Accordion.Toggle>
+                        </Accordion.Toggle>
                     </Card.Header>
                     <Accordion.Collapse eventKey="0">
                         <Card.Body>
@@ -209,11 +224,12 @@ function ManageUsers() {
                             </Form>
                             <Button onClick={e => addUser()}> Add User </Button>
                             <EmailAlert />
+                            <CreatedAlert />
                         </Card.Body>
                     </Accordion.Collapse>
                 </Card>
             </Accordion>
-            <Button onClick={goBack} href="/admin" > Back </Button>
+            <Button onClick={goBack} href="/admin" className="back-btn" > Back </Button>
         </div>
     )
 
