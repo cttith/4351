@@ -9,4 +9,5 @@ import java.util.Optional;
 @Repository
 public interface EmployeeRepository extends MongoRepository<Employee, Integer> {
   Optional<Employee> findByEmail(String email);
+  void deleteByEmail(String email);
 }

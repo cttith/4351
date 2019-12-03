@@ -61,8 +61,17 @@ public class HomeController {
 
     System.out.println("email: " + credentials.email);
     System.out.println("password: " + credentials.password);
-    if (employee.get().getPassword().equals(credentials.password)) return 200;
+    if (employee.get().getPassword().equals(credentials.password)){
+      if (employee.get().getEmail().equals("Admin")) return 201;
+      return 200;
+    }
     return -1;
+  }
+
+  @GetMapping(value = "/remove/{email}")
+  public Integer removeUser(@PathVariable("email")String email){
+    employeeRepository.deleteByEmail(email);
+    return 200;
   }
 
   /*
