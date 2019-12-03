@@ -1,6 +1,7 @@
 package com.softwareeng.tith_cao_stricklin.controller;
 
 
+import com.softwareeng.tith_cao_stricklin.RequestBody.EmployeeRequest;
 import com.softwareeng.tith_cao_stricklin.RequestBody.Login;
 import com.softwareeng.tith_cao_stricklin.model.Employee;
 import com.softwareeng.tith_cao_stricklin.model.Permission;
@@ -45,6 +46,15 @@ public class HomeController {
     }
     employeeRepository.insert(new Employee(newID, "christian@yahoo.com", "password", "Christian", "Tith", "SWE", roles));
     return "creating new employee with ID: " + newID.toHexString();
+  }
+
+  @PostMapping(value = "/create/employee")
+  public Integer createEmployee(@RequestBody EmployeeRequest newEmployee){
+    System.out.println("new email = " + newEmployee.getEmail());
+    if (employeeRepository.findByEmail(newEmployee.getEmail()).isPresent()) return -1;
+    Employee employee = new Employee(new ObjectId(), newEmployee.getEmail(), newEmployee.getPassword(), newEmployee.getFirstName(), newEmployee.getLastName(), "", new ArrayList<>());
+    employeeRepository.save(employee);
+    return 1;
   }
 
   @GetMapping(value = "/allEmployees")
