@@ -9,3 +9,8 @@ npm install react-bootstrap
 
 npm install @reach/router
 
+
+Admin account:
+email: Admin
+password: password
+
