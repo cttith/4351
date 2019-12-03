@@ -8,22 +8,37 @@
     <script src="../../js/react-dom.min.js"></script>
     <script src="../../js/browser.min.js"></script>
 </head>
-<body>
 
+<body>
+<div style="position: absolute;left: 50%;top: 50%;margin-top: -360px;margin-left: -220px;">
+<img src="Logo.png" widh=250 height=250></div>
 <div id="container"></div>
 
 <script type="text/babel">
     ReactDOM.render(<h1><center>Administrative Portal</center></h1>, document.getElementById('container'));
+	
 </script>
+<script>
+    function reset()
+    {
+        document.getElementById('USER').value = '';
+        document.getElementById('PAS').value = '';
+    }
 
+</script>
 <div class="container">
-    <center><label for="user"><b>Username</b></label>
-    <input type="text" placeholder="Enter Username" name="user" required></center>
+	<div style="position: absolute;left: 50%;top: 50%;margin-top: -100px;margin-left: -200px;">
+    <label for="user" ><b>Username</b></label>
+    <input type="text"  placeholder="Enter Username" name="user" id="USER" required></div>
     <p></p>
-    <center><label for="pas"><b>Password</b></label>
-    <input type="password" placeholder="Enter Password" name="pas" required></center>
+	<div style="position: absolute;left: 50%;top: 50%;margin-top: -75px;margin-left: -195px;">
+    <label for="pas"><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" name="pas" id="PAS" required></div>
     <p></p>
-    <center><button type="submit">Login</button></center>
+	<div style="position: absolute;left: 50%;top: 50%;margin-top: -45px;margin-left: -125px;">
+    <button type="submit">Login</button></div>
+	<div style="position: absolute;left: 50%;top: 50%;margin-top: -45px;margin-left: -70px;">
+	<button type="reset" onclick="reset()">Reset</button></div>
 
 </div>
 <!--
