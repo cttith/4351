@@ -3,6 +3,7 @@ import { Accordion, Card, Button, Form, Col, Alert } from 'react-bootstrap'
 import './ManageUsers.css'
 import './Login.css'
 import '../App.css'
+import { navigate } from '@reach/router/lib/history';
 /*
 Add/delete users
 */
@@ -149,6 +150,10 @@ function ManageUsers() {
         }
     }
 
+    const goBack = e => {
+        navigate("/admin")
+    }
+
     return (
         <div className="accordion-div">
             <strong className="title"> Accounts </strong>
@@ -208,6 +213,7 @@ function ManageUsers() {
                     </Accordion.Collapse>
                 </Card>
             </Accordion>
+            <Button onClick={goBack} href="/admin" > Back </Button>
         </div>
     )
 

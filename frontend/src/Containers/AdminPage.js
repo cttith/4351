@@ -27,7 +27,12 @@ function AdminPage({ isAdmin, email }) {
             </div>
         )
     } else {
-        return null
+        return (
+            <div>
+                <p> {email} </p>
+            </div>
+
+        )
     }
 }
 

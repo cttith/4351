@@ -42,3 +42,8 @@
 .login-margins{
   margin-top:15px;
 }
+
+.navbar-btn{
+  z-index: 1;
+  margin-left: 10px;
+}
